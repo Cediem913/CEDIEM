@@ -1,0 +1,222 @@
+body{
+    background: #dfdfdf;  /* fallback for old browsers */
+}
+
+.bg{
+	background-image: url(https://res.cloudinary.com/dinzw8gc3/image/upload/v1569205182/CEDIEM/Website/Structure/000_vnd7nt_bcg7hc.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	margin-top:-16px;
+	width: 100%;
+}
+
+#map {
+	height: 500px;
+	width: 100%;
+}
+
+iframe {
+	max-width: 100%;
+}
+
+.header
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+}
+
+.container{
+	margin-top: 100px;
+}
+
+.newarrival{
+	background: #06705F;
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.col-md-7 h2{
+	color:#555;
+}
+
+.price{
+	color: #06705F;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.cart{
+	background: #06705F;
+	color: #FFFFFF;
+	font-size: 15px;
+}
+
+.btn-cediem-grey{
+	background: rgb(148, 148, 148);
+	color: #FFFFFF;
+}
+
+.alerts {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+/*
+Cursos
+	paginas en las cuales aplican estos simples estilos
+*/
+
+.page-link {
+	position: relative;
+	display: block;
+	padding: 0.5rem 0.75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	color: rgb(105, 105, 105);
+	background-color: rgb(222, 223, 223);
+	border: 1px solid #8b8b8b;
+   
+  }
+
+  .page-link:focus, .page-link:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #003C00;
+  }
+
+.page-item.active .page-link {
+	z-index: 1;
+	color: #fff;
+	background-color: #06705F;
+	border-color: rgb(4, 70, 59);
+}
+.page-item.disabled .page-link {
+	color: #858585;
+	pointer-events: none;
+	cursor: auto;
+	background-color: rgb(156, 156, 156);
+	border-color: #727272;
+}
+
+.card-cediem-g{
+	background-color: rgb(223, 219, 219) !important;
+	border: 1px solid grey;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.font-cediem{
+	color: #06705F;
+}
+
+.font-cediem-title{
+	color: #06705F;
+}
+
+.border-cediem{
+	border: solid;
+	border-color: #06705F;
+}
+
+.bg-cediem{
+    background-color: #06705F !important;
+		margin-top: -35px !important;
+		padding-top: 50px !important;
+}
+
+.alert-cediem{
+	color: red;
+}
+
+
+/*
+*Carousel Icons
+*/
+
+.testimonial{
+	background: white;
+	text-align: center;
+	padding: 30px 30px 50px;
+	margin:  15px 15px 100px;
+	position: relative;
+	margin-top: 150px;
+}
+
+.testimonial:before,
+.testimonial:after{
+	content: "";
+	border-top: 40px solid white;
+	border-right: 125px solid transparent;
+	position: absolute;
+	bottom: -40px;
+	left: 0;
+}
+
+.testimonial:after{
+	border-right:none;
+	border-left: 125px solid transparent;
+	left: auto;
+	right: 0;
+}
+
+.testimonial .icon{
+	display: inline-block;
+	font-size: 80px;
+	color:orange;
+	margin-bottom: 20px;
+	opacity: 0.5;
+}
+
+.testimonial .description{
+	font-size: 15px;
+	color: #555;
+	text-align: justify;
+	margin-bottom: 30px;
+	opacity: 0.9;
+	letter-spacing: -1px;
+}
+
+.testimonial .testimonial-content{
+	display: inline-block;
+	position: absolute;
+	left: 0;
+}
+
+.testimonial .pic{
+	display: inline-block;
+	border: 6px solid white;
+	border-radius: 50%;
+	box-shadow:  0 0 2px 2px orange;
+	overflow: hidden;
+	z-index: 1;
+	position: relative;
+}
+
+.testimonial .pic img{
+	width: 100%;
+	height: auto;
+}
+
+.testimonial .title{
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	text-transform: capitalize;
+	margin: 0 0 5px 0;
+}
+
+.testimonial .post{
+	display: block;
+	font-size: 14px;
+	color: #ffd9b8;
+}
+
+.pic img{
+	width: 100px !important;
+	height: 50px;
+}

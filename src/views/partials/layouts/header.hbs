@@ -1,0 +1,61 @@
+<nav class="header navbar navbar-expand-md d-flex flex-row navbar navbar-dark cart">
+  <a class="navbar-brand" href="/">
+    <img src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1567727528/CEDIEM/Website/Structure/icon_xk0xt1.bmp"
+      class="d-inline-block align-top rounded" alt="">
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-item nav-link active" href="/cursos/1/">Cursos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/areas">Áreas</a>
+      </li>
+      <!--<li class="nav-item">
+        <a class="nav-link" href="/revista">Revista</a>
+      </li>-->
+      <li class="nav-item">
+        <a class="nav-link" href="/nosotros">Nosotros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contacto">Contacto</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {{#if user.id_user}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          mi cuenta ({{user.id_user}})
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          
+          <form action="http://moodle.cediem.com/login/index.php" method="POST">
+            <input type="hidden" name="username" id="username" size="15" value="{{user.id_user}}" />
+            <input type="hidden" name="password" id="password" size="15" value="{{user.Secret}}" />
+            <input class="dropdown-item" type="submit" name="buttonLogin" id="buttonLogin" value="Ir a la consola" />
+          </form>
+          <a class="dropdown-item" href="/">Estatus</a>
+          <div class="dropdown-divider"></div>
+          <form action="/cerrar" method="POST">
+            <input class="dropdown-item" type="submit" value="Cerrar sesión">
+          </form>
+        </div>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link" href="/acceso">Acceso</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/registro">Registro</a>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
+</nav>

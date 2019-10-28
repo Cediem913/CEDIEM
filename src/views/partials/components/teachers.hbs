@@ -1,0 +1,145 @@
+<section id="services">
+
+    <div class="container">
+        <div class="row">
+            <h3 class="font-cediem col-12">¿Quiénes somos?</br></br></h3>
+            <p class="col-12 card-cediem-g">
+                CEDIEM está conformado por un equipo de profesionales, con conocimientos
+                especializados en diferentes áreas y veinte años de experiencia en la docencia, la
+                investigación y la práctica laboral y profesional. Debido a la vocación, constancia y pasión
+                en la solución de problemáticas educativas, psicológicas, en el campo de la salud y en el
+                fomento al desarrollo humano en octubre del 2018 decidimos unificar esfuerzos para
+                desarrollar alternativas formativas a partir de metodologías activas que promuevan el
+                desarrollo emocional, intelectual, físico y espiritual de las personas a partir de reconocer
+                que solo un trabajo proactivo, sinérgico y holístico logrará un cambio favorable en el estilo
+                de vida de los mexicanos.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="teachers-slider" class="owl-carousel">
+                <!--<div class="testimonial">
+                    <span class="icon fa fa-quote-left"></span>
+                    <p class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, aliquet sit amet
+                        elementum vel, vehicula eget eros. Vivamus arcu metus, mattis sed sagittis at, sagittis quis
+                        neque.
+                        Praesent.Vivamus arcu metus, mattis sed sagittis at, sagittis quis neque. Praesent.
+                    </p>
+                    <div class="testimonial-content">
+                        <div class="pic"><img src="images.jpg" class="" alt=""></div>
+                        <h3 class="title">williamson</h3>
+                        <span class="post">Web Developer</span>
+                    </div>
+                </div>-->
+                {{#each teachers}}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-4 d-flex align-items-center" >
+                                <img src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1567360394/CEDIEM/Website/teachers/{{Image}}"
+                                    class="img-fluid" alt="">
+                            </div>
+                            <div class="col-8 card-cediem-g">
+                                <div class="card-block px-2">
+                                    <h3 class="card-title font-cediem">{{Name}}</h3>
+                                    <p class="font-weight-bold">{{Specialties}}</p>
+                                    <p class="card-text">{{Description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <div class="card mx-auto">
+                    <div class="card-body">
+                        <p class="lead">There is not proffesors yet</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#teachers-slider").owlCarousel({
+                margin: 80,
+                loop: true,
+                responsive: {
+                    0: {
+                        items: 2
+                    },
+                    900: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 2
+                    }
+                },
+                singleItem:true
+            });
+        });
+    </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 ">
+                <h3 class="font-cediem col-12">Misión</h3>
+                <p class="card-cediem-g">
+                    Fomentar el autoconocimiento y desarrollo integral
+                    del ser humano con la finalidad de aprender a
+                    reconocerse y vivir consigo mismo, decodificar sus
+                    creencias autolimitantes e identificar la
+                    importancia que tiene la voluntad y el interés para
+                    lograr un cambio y evolucionar.
+                    Favorecer el aprecio por el sentido de la vida, el
+                    éxito profesional, la convivencia colectiva y
+                    armoniosa además de propiciar el equilibrio
+                    mental, emocional, físico y espiritual en las
+                    personas.</p>
+            </div>
+            <div class="col-lg-6 col-md-12 ">
+                <h3 class="font-cediem col-12">Visión</h3>
+                <p class="card-cediem-g">
+                    Ser una Institución con presencia nacional, que
+                    fomente el desarrollo integral (personal, social,
+                    laboral, académico, espiritual) de sus
+                    integrantes.
+                    Proporcionar experiencias formativas
+                    reconocidas por su calidez humana, gran
+                    profesionalismo, excelente calidad de
+                    enseñanza e innovación en métodos y
+                    estrategias de educación holística.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 ">
+                <h3 class="font-cediem">Valores</h3>
+                <p class="card-cediem-g">
+                    <strong>Libertad.</strong> Con base en los postulados del filósofo mexicano Leopoldo Zea
+                    pensamos que la libertad debe ser: "Absoluta pues hace al hombre dueño de sus acciones como un valor que se
+                    conquista, por lo que no hay modelos a seguir, pues son éstos los que
+                    imponen nuevas subordinaciones y un hombre libre no es dominador ni dominado sino responsable y
+                    consciente de sus límites y consecuencias de
+                    su toma de decisiones."
+                    </br>
+
+                    <strong>Amor.</strong> Afecto que existe entre las personas independientemente de su raza, credo,
+                    cultura, ideología, creencias y constitución física.
+                    </br>
+
+                    <strong>Responsabilidad.</strong> Somos leales a nuestras convicciones y filosofía de vida. En un
+                    marco de profesionalismo y calidad de servicio nuestra pasión y compromiso es
+                    crear una mejor sociedad, basados en un auténtico sentido de responsabilidad
+                    como norma ética en todos nuestros actos.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

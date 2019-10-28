@@ -1,0 +1,73 @@
+<section id="services">
+    <div class="row">
+        <div id="magazines-slider" class="owl-carousel">
+            {{#each magazines}}
+            <div class="col-12">
+                <div class="card mb-4">
+                    <img class="card-img-top"
+                        src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1567362583/CEDIEM/Website/magazines/{{DateRelease}}/{{Image}}"
+                        alt="{{Title}}">
+                    <div class="card-body">
+                        <h3 class="card-title">{{Title}}</h3>
+                        <h4 class="card-title">por {{Author}}</h4>
+                        <p class="card-text">{{Content}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <p> <small class="text-muted">Fecha:</small> {{DateRelease}}</p>
+                        <a href="https://res.cloudinary.com/dinzw8gc3/image/upload/v1567362583/CEDIEM/Website/magazines/{{DateRelease}}/{{File}}"
+                            class="btn btn-dark cart"> Descarga</a>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <p class="lead">No se pueden encontrar las revistas</p>
+                    <button onclick="goBack()" class="btn btn-dark"> Regresar</button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("#magazines-slider").owlCarousel({
+            margin: 2,
+            loop: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                900: {
+                    items: 2
+                },
+                1000: {
+                    items: 2
+                }
+            }
+        });
+    });
+</script>
+</br></br></br>
+
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="#" tabindex="-1">Prev</a>
+        </li>
+        <li class="page-item disabled"><a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item active">
+            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+</section>

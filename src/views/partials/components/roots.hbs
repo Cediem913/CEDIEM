@@ -1,0 +1,60 @@
+<section id="services">
+    <div class="row">
+        <div id="area-slider" class="owl-carousel">
+            {{#each roots}}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-img-top">
+                        <img class="img-fluid"
+                            src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1564937002/CEDIEM/Website/roots/{{Image}}"
+                            alt="{{id_root}}">
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                        <h5 class="card-title"><p>{{id_root}}</p></h5>
+                        <div class="text-center">
+                            <p class="card-text">
+                                <a class="btn btn-cediem-grey" href="/cursos/1/{{id_root}}">Ver cursos</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <p class="lead">No se puede encontrar el ramo "{{title}}"</p>
+                    <button onclick="goBack()" class="btn cart"> Regresar</button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("#area-slider").owlCarousel({
+            margin: 4,
+            loop: true,
+            items : 4,
+            responsiveClass:true,
+            autoWidth:true,
+            responsive: {
+                512: {
+                    items: 1,
+                    nav: true
+                },
+                900: {
+                    items: 2,
+                    nav: true
+                },
+                1000: {
+                    items: 4,
+                    nav: false,
+                    margin: 20
+                }
+            }
+        });
+    });
+</script>
