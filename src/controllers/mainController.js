@@ -89,11 +89,11 @@ var self = module.exports = {
     },
 
     checkUsers: async (req, res, next) => {
-        const { id_user, Email, Secret } = req.session;
-        console.log('ReqSesionUser_' + id_user + Email + Secret);
+        const { id_user, Email, Secret, TokenPublic} = req.session;
+        console.log('ReqSesionUser_' + id_user + Email + Secret + TokenPublic);
         if (id_user) {
             res.locals.user = await User.findOne({
-                attributes: ['id_user', 'Secret', 'Email'],
+                attributes: ['id_user', 'Secret', 'Email','TokenPublic'],
                 where: {
                     id_user: id_user
                 }

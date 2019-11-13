@@ -1,0 +1,45 @@
+<section id="result-status">
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <!--<div class="col-md-2 sidenav">
+                <p><a href="#">Compras</a></p>
+                <p><a href="#">Cursos</a></p>
+            </div>-->
+            {{#if sells}}
+            <div class="col-md-12 text-left">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">número</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each sells}}
+                        <tr>
+                            <th scope="row">{{id_sell}}</th>
+                            <td>{{Product}}</td>
+                            <td>{{FinalPrice}}</td>
+                            <td>{{DateUp}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+            <div class="col-6 mx-auto">
+                <div class="card border-cediem mb-4">
+                    <div class="card-body">
+                        <h3>Aún no has comprado cursos</h3>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="/cursos/1" class="btn btn-dark"> Comprar cursos</a>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</section>

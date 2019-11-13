@@ -66,7 +66,8 @@ var self = module.exports = {
                     Secret: password,
                     TokenPublic: tokenPublic,
                     TokenSession: tokenPublic,
-                    IsActive: -1
+                    IsActive: -1,
+                    dateUp: Date.now()
                 });*/authorizedUser = true;/* */
 
                 console.log({
@@ -75,7 +76,8 @@ var self = module.exports = {
                     Secret: password,
                     TokenPublic: tokenPublic,
                     TokenSession: tokenSession,
-                    IsActive: -1
+                    IsActive: -1,
+                    dateUp: Date.now()
                 });
 
                 if (authorizedUser) {
@@ -115,7 +117,7 @@ var self = module.exports = {
         var errors = [];
         if (user && password) {
             const user2 = await User.findOne({
-                attributes: ['id_user', 'Secret', 'Email','IsActive'],
+                attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
                 where: {
                     id_user: user
                 }
@@ -130,9 +132,17 @@ var self = module.exports = {
 
             if (isCorrect) {
                 if(user2.IsActive == 1){
+                    await User.update(
+                        {dateSesion: Date.now()},
+                        {where: { id_user: user2.id_user }}
+                    );
+
                     req.session.id_user = user2.id_user;
                     req.session.Secret = user2.Secret;
                     req.session.Email = user2.Email;
+                    req.session.TokenPublic = user2.TokenPublic;
+                    
+                    console.log(req.session)
                     res.redirect('/');
                 }else if(user2.IsActive == -1){
                     res.render('website/acceso', { errors:[{ text: 'Usuario inactivo, accede a tu correo para activarlo' }]});

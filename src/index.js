@@ -54,7 +54,7 @@ app.use(cookieParser());
 app.use(require('./routes/main'));
 app.use(require('./routes/roots'));
 app.use(require('./routes/courses'));
-app.use(require('./routes/purchases'));
+app.use(require('./routes/status'));
 app.use(require('./routes/teachers'));
 app.use(require('./routes/magazines'));
 app.use(require('./routes/users'));

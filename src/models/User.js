@@ -16,6 +16,10 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING
   }, IsActive: {
     type: Sequelize.INTEGER
+  },dateUp:{
+    type: Sequelize.DATE
+  },dateSesion:{
+    type: Sequelize.DATE
   }
 },
 

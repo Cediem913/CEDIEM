@@ -35,13 +35,16 @@
           mi cuenta ({{user.id_user}})
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          
-          <form action="http://moodle.cediem.com/login/index.php" method="POST">
-            <input type="hidden" name="username" id="username" size="15" value="{{user.id_user}}" />
-            <input type="hidden" name="password" id="password" size="15" value="{{user.Secret}}" />
-            <input class="dropdown-item" type="submit" name="buttonLogin" id="buttonLogin" value="Ir a la consola" />
+          <form id="shopAccess" action="/estatus" method="POST">
+            <input type="hidden" name="id_user" id="username" size="150" value="{{user.TokenPublic}}" />
+            <input class="dropdown-item" type="submit" name="buttonShop" id="buttonShop" value="Mis compras" />
           </form>
-          <a class="dropdown-item" href="/">Estatus</a>
+          <form id="moodleAccess" action="http://moodle.cediem.com/login/index.php" method="POST">
+            <input type="hidden" name="username" id="username" size="25" value="{{user.id_user}}" />
+            <input type="hidden" name="password" id="password" size="25" value="{{user.Secret}}" />
+            <input class="dropdown-item" type="submit" name="buttonLogin" id="buttonLogin" value="Acceso a moodle" />
+          </form>
+          <!--<a class="dropdown-item" href="/estatus/{{user.TokenPublic}}">Mis compras</a>-->
           <div class="dropdown-divider"></div>
           <form action="/cerrar" method="POST">
             <input class="dropdown-item" type="submit" value="Cerrar sesión">

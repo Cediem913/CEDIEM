@@ -63,6 +63,18 @@
 </div>
 
 <div class="container">
+  {{#if user.id_user}}
+    <a href="http://moodle.cediem.com/">
+      <img src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1573601133/CEDIEM/Website/Structure/moodleicon_u6yzho.jpg" alt="imagen">
+    </a>
+  {{else}}
+    <a href="http://moodle.cediem.com/">
+      <img src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1573601133/CEDIEM/Website/Structure/moodleicon_u6yzho.jpg" alt="imagen">
+    </a>
+  {{/if}}
+</div>
+
+<div class="container">
   <h2>Áreas</h2>
   <br />
   {{>components/roots}}

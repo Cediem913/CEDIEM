@@ -15,6 +15,9 @@ const Sell = db.define('sell',{
   },Price: {
     type: Sequelize.STRING,
     allowNull: false,
+  },FinalPrice: {
+    type: Sequelize.NUMBER,
+    allowNull: false,
   },StartDate: {
     type: Sequelize.DATE,
     allowNull: true,
@@ -24,7 +27,7 @@ const Sell = db.define('sell',{
   },Map: {
     type: Sequelize.STRING,
     allowNull: true,
-  },SellDate: {
+  },DateUp: {
     type: Sequelize.DATE,
     allowNull: true,
   }
