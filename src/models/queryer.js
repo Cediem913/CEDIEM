@@ -62,7 +62,7 @@ exports.validateUserFunction = async function (username){
 
     var userCount = await this.existUser(username);
     if(userCount>0){
-        var message = 'Este usuario ya existe'; 
+        var message = 'El usuario "' + username + '" ya existe, intenta acceder con él'; 
         return message;
     }
     return message;

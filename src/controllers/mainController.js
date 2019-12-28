@@ -63,6 +63,22 @@ var self = module.exports = {
         res.redirect('/',{message:[{Text:"Compra exitosa, accede a tu estatus para saber mas"}]});
     },
 
+    buy: async function (req, res, next) {
+        var service = require('../controllers/serviceController');
+        var {type, product} = req.params;
+        var result = {};
+
+        if(type == 1){
+            result.type = "Curso";   
+        }else if(type == 2){
+            result.type = "Servicio";
+            service.validateServiceBeforeBuy(product); 
+        }
+
+        var title = "Comprar " + result.type;
+        res.render('website/compra',{title, type,product});
+    },
+
     contact: function (req, res, next) {
         var title = 'Contacto';
         res.render('website/contacto', { title });
@@ -82,7 +98,7 @@ var self = module.exports = {
     redirectHome: (req, res, next) => {
         console.log('redirect home');
         if (req.session.id_user) {
-            res.redirect('/cursos');
+            res.redirect('/cursos/1');
         } else {
             next();
         }

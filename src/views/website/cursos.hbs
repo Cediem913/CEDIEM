@@ -1,4 +1,17 @@
 <div class="container">
     {{>components/courses}}
+
+    <script>
+        $(document).ready(function () {
+            $("#button-find").on("click", function () {
+                $.ajax({
+                    url: "/cursos/1/" + document.getElementById("input-query").value
+                })
+                    .done(function (data) {
+                        $('#result-courses').html(data);
+                    });
+            });
+        });    
+    </script>
     </br></br></br></br>
 </div>

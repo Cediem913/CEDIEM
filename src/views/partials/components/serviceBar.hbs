@@ -1,0 +1,21 @@
+{{#if events}}
+<div id="arrayNuevo" class="dropdown">
+    <button id="botonSeleccion" class="btn btn-success dropdown-toggle cart" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        seleccionar
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {{#each events}}
+        <a class="dropdown-item" onclick="asignarHora({{Hour}})">{{Hour}}:00 hrs</a>
+        {{else}}
+        <a class="dropdown-item">No hay horario en este día</a>
+        {{/each}}
+    </div>
+</div>
+{{/if}}
+
+{{#each errors}}
+<div id="arrayNuevo" class="dropdown">
+    <p>{{Text}}</p>
+</div>
+{{/each}}

@@ -1,0 +1,29 @@
+<div class="container">
+    <div>
+        <section>
+            <div class="input-group mb-3">
+                <input id="services-input-query" type="text" class="form-control" placeholder="Que servicio buscas?" value="{{query}}">
+                <button id="services-button-find" type="button" class="btn btn-dark cart">Buscar</button>
+            </div>
+            {{>components/services}}
+        </section>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#services-button-find").on("click", function () {
+                $.ajax({
+                    url: "/servicios/1/" + document.getElementById("services-input-query").value + "/1"
+                })
+                    .done(function (data) {
+                        $('#services-container').html(data);
+                    });
+            });
+        });
+
+        $('#services-input-query').keypress(function(e){
+            if(e.keyCode==13)
+                $('#services-button-find').click();
+        });   
+    </script>
+    </br></br></br>
+</div>

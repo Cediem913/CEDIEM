@@ -13,6 +13,8 @@
                 <div class="card-body">
                     <form action="/acceso" method="POST">
                         <div class="form-group">
+                            <input type="hidden" name="referer" value="{{referer}}" >
+
                             <input type="text" class="fomr-control" name="user" placeholder="Usuario o correo"
                                 value="" autofocus>
                         </div>
@@ -24,7 +26,7 @@
                             <button type="submit" class="btn btn-dark">Sign in</button>
                         </div>
                     </form>
-                    <a href="http://moodle.cediem.com/login/forgot_password.php">olivdé mi
+                    <a href="/olvido">olivdé mi
                         contraseña</a><br />
                     <a href="/registro">registrar</a>
                 </div>

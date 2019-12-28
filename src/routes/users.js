@@ -15,4 +15,12 @@ router.post('/cerrar', mainController.redirectLogin, userController.logoutP);
 router.get('/acceso', mainController.redirectHome, userController.signin);
 router.post('/acceso', mainController.redirectHome, userController.signinP);
 
+router.get('/olvido', mainController.redirectHome, userController.forget);
+router.post('/olvido', mainController.redirectHome, userController.forgetP);
+
+router.get('/recuperar/:user/:token', mainController.redirectHome, userController.recover);
+router.post('/recuperar/', mainController.redirectHome, userController.recoverP);
+
+router.get('/dudas/', userController.faq);
+
 module.exports = router;

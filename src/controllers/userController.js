@@ -81,11 +81,11 @@ var self = module.exports = {
                 });
 
                 if (authorizedUser) {
-                    var success_msg = 'Registro correcto, accede a tu correo ( '+email+' ) para activar tu cuenta';
+                    var success_msg = 'Registro correcto, accede a tu correo ('+email+') para activar tu cuenta';
                     res.render('website/acceso',{success_msg});
                 }
             } catch (e) {
-                if (e | e.errors[0].message == 'PRIMARY must be unique') {
+                if (e.errors[0].message == 'PRIMARY must be unique') {
                     errors.push({ text: 'El usuario "' + user + '" ya existe, intenta acceder con el' });
                 } else {
                     errors.push({ text: 'Problemas con el sistema intenta de nuevo mas tarde' });
@@ -109,25 +109,33 @@ var self = module.exports = {
 
     signin: function (req, res, next) {
         var title = 'Acceso';
-        res.render('website/acceso', { title });
+        referer = req.headers.referer;
+        res.render('website/acceso', { title, referer});
     },
 
     signinP: async function (req, res, next) {
-        const { user, password } = req.body;
+        const { user, password, referer } = req.body;
         var errors = [];
         if (user && password) {
-            const user2 = await User.findOne({
+            var user2 = await User.findOne({
                 attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
                 where: {
                     id_user: user
                 }
             });
-            /*const salt = await bcrypt.genSalt(10);
-            const hash = await bcrypt.hash(password, salt);*/
+
+            if(user2 == undefined || user2 == null){
+                user2 = await User.findOne({
+                    attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+                    where: {
+                        Email: user
+                    }
+                });
+            }
 
             var isCorrect = false;
             if (user2 && password) {
-                isCorrect = user2.Secret == password;//await bcrypt.compare(hash, user2.Secret);
+                isCorrect = user2.Secret == password;
             }
 
             if (isCorrect) {
@@ -136,14 +144,11 @@ var self = module.exports = {
                         {dateSesion: Date.now()},
                         {where: { id_user: user2.id_user }}
                     );
-
                     req.session.id_user = user2.id_user;
                     req.session.Secret = user2.Secret;
                     req.session.Email = user2.Email;
                     req.session.TokenPublic = user2.TokenPublic;
-                    
-                    console.log(req.session)
-                    res.redirect('/');
+                    res.redirect(referer!= undefined? referer:'/');
                 }else if(user2.IsActive == -1){
                     res.render('website/acceso', { errors:[{ text: 'Usuario inactivo, accede a tu correo para activarlo' }]});
                 }else if(user2.IsActive == 0){
@@ -159,5 +164,81 @@ var self = module.exports = {
             errors.push({ text: 'Usuario y/o contraseña en blanco' });
             res.render('website/acceso', { errors });
         }
+    },
+
+    forget: function (req, res, next) {
+        var title = 'Olvido';
+        res.render('website/olvido', { title });
+    },
+
+    forgetP: async function (req, res, next) {
+        var user = req.body.user;
+        var errors = [];
+        var success_msg;
+        var title = "Olvido";
+
+        if(user == undefined || user == null || user == ""){
+            errors.push({ text: 'Usuario y/o correo en blanco' });
+        }else{
+            var user2 = await User.findOne({
+                attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+                where: {
+                    id_user: user
+                }
+            });
+            if(user2 == undefined || user2 == null){
+                user2 = await User.findOne({
+                    attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+                    where: {
+                        Email: user
+                    }
+                });
+            }
+            if(user2 == null || user2 == undefined){
+                errors.push({text:"El usuario o correo no están registrados, intenta de nuevo"})
+            }else{
+                //mandar correo con token de sesion nuevo para validar, y en caso de que no indicar que está cancelado
+                //enviarCorreo(user2.Email,user2.TokenSession,user2.id_user)
+                success_msg = 'Se ha enviado un correo a "'+ user2.Email +'" de manera exitosa' ;
+            }
+        }
+        res.render('website/olvido', { title,errors,success_msg });
+    },
+
+    recover: async function (req, res, next) {
+        var title = 'Recuperar';
+        var {user,token} = req.params;
+        var recover = false;
+        var errors = [];
+
+        var userQ = await User.findOne({
+            attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+            where: {
+                id_user: user,
+                TokenSession: token
+            }
+        });
+
+        if(userQ != null || userQ != undefined){
+            recover = true;
+        }else{
+            errors.push({text: "El link de recuperación caducó vuelve a generar uno"});
+            var title = 'Error';
+        }
+        res.render('website/recuperar', { title,errors,recover,token,user});
+    },
+
+    recoverP: async function (req, res, next) {
+        var title = 'Recuperar';
+        var {user,token,newPassword ,confirmPassword} = req.body;
+        console.log({user, token,newPassword ,confirmPassword})
+        var recovered = true;
+        const success_msg = "Has modificado tu contraseña, accede de nuevo con ella";
+
+        res.render('website/recuperar', { title,recovered,success_msg});
+    },
+
+    faq: async function (req, res, next) {
+        res.render('website/dudas');
     }
 }

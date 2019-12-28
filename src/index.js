@@ -19,7 +19,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exhbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
+    partialsDir: [
+        path.join(app.get('views'), 'website'),
+        path.join(app.get('views'), 'partials')
+    ],
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
@@ -54,6 +57,7 @@ app.use(cookieParser());
 app.use(require('./routes/main'));
 app.use(require('./routes/roots'));
 app.use(require('./routes/courses'));
+app.use(require('./routes/services'));
 app.use(require('./routes/status'));
 app.use(require('./routes/teachers'));
 app.use(require('./routes/magazines'));
