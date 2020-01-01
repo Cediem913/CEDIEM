@@ -21,6 +21,8 @@ router.post('/olvido', mainController.redirectHome, userController.forgetP);
 router.get('/recuperar/:user/:token', mainController.redirectHome, userController.recover);
 router.post('/recuperar/', mainController.redirectHome, userController.recoverP);
 
+router.get('/activar/:user/:token', mainController.redirectHome, userController.activate);
+
 router.get('/dudas/', userController.faq);
 
 module.exports = router;

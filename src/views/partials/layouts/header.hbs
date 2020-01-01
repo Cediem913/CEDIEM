@@ -50,6 +50,8 @@
           <!--<a class="dropdown-item" href="/estatus/{{user.TokenPublic}}">Mis compras</a>-->
           <div class="dropdown-divider"></div>
           <form action="/cerrar" method="POST">
+            <input type="hidden" name="id_user" id="id_user" size="150" value="{{user.id_user}}" />
+            <input type="hidden" name="token" id="token" size="150" value="{{user.TokenSession}}" />
             <input class="dropdown-item" type="submit" value="Cerrar sesión">
           </form>
         </div>

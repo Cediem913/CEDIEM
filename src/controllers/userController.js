@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const queryer = require('../models/queryer');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 
 var self = module.exports = {
 
@@ -35,6 +36,7 @@ var self = module.exports = {
 
     loginP: async function (req, res, next) {
         const { user, email, confirmEmail, password } = req.body;
+        console.log({user, email, confirmEmail, password });
         const errors = [];
         if (user.length == 0 || email.length == 0) {
             errors.push({ text: 'los campos de usuario y correo no pueden ir vacíos' });
@@ -57,8 +59,9 @@ var self = module.exports = {
             res.render('website/registro', { errors, user, email, password, confirmEmail })
         } else {
             try {
-                const salt = await bcrypt.genSalt(10);
+                var salt = await bcrypt.genSalt(5);
                 const tokenPublic = await bcrypt.hash((user + email + password),salt);
+                salt = await bcrypt.genSalt(2);
                 const tokenSession = await bcrypt.hash(Date.now().toString(),salt);
                 /*let authorizedUser = await User.create({
                     id_user: user,
@@ -68,7 +71,8 @@ var self = module.exports = {
                     TokenSession: tokenPublic,
                     IsActive: -1,
                     dateUp: Date.now()
-                });*/authorizedUser = true;/* */
+                });*/authorizedUser = true;
+                sendEmail(email,"nocontestar@cediem.com",{subject:"Activacion Cediem",text:"<b>Hola " + user + " abre este enlace para activar tu <a href ='#'>cuenta</a></b>"});
 
                 console.log({
                     id_user: user,
@@ -85,26 +89,46 @@ var self = module.exports = {
                     res.render('website/acceso',{success_msg});
                 }
             } catch (e) {
+                console.log("xxxxxxxxxxxxxxxxxx"+e);
                 if (e.errors[0].message == 'PRIMARY must be unique') {
                     errors.push({ text: 'El usuario "' + user + '" ya existe, intenta acceder con el' });
                 } else {
                     errors.push({ text: 'Problemas con el sistema intenta de nuevo mas tarde' });
                 }
-                console.log(e);
+                
                 res.send(e);
                 //res.render("website/acceso", {errors});
             }
         }
     },
 
-    logoutP: function (req, res, next) {
-        req.session.destroy(err => {
-            if (err) {
-                res.redirect('/');
+    logoutP: async function (req, res, next) {
+        const { id_user, token} = req.body;
+        user2 = await User.findOne({
+            attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+            where: {
+                id_user: id_user,
+                TokenSession: token
             }
-            res.clearCookie(process.env.COOKIE_SESION_ID);
-            res.redirect('/acceso');
         });
+
+        
+        if(user2 != null || user2 != undefined){
+            await User.update(
+                {TokenSession: null},
+                {where: { id_user: user2.id_user }}
+            );
+            console.log({TokenSession: null},{where: { id_user: user2.id_user }});
+            req.session.destroy(err => {
+                if (err) {
+                    res.redirect('/');
+                }
+                res.clearCookie(process.env.COOKIE_SESION_ID);
+                res.redirect('/acceso');
+            });
+        }else{
+            res.redirect('/');
+        }
     },
 
     signin: function (req, res, next) {
@@ -118,7 +142,7 @@ var self = module.exports = {
         var errors = [];
         if (user && password) {
             var user2 = await User.findOne({
-                attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+                attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic','TokenSession'],
                 where: {
                     id_user: user
                 }
@@ -126,7 +150,7 @@ var self = module.exports = {
 
             if(user2 == undefined || user2 == null){
                 user2 = await User.findOne({
-                    attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic'],
+                    attributes: ['id_user', 'Secret', 'Email','IsActive','TokenPublic','TokenSession'],
                     where: {
                         Email: user
                     }
@@ -140,14 +164,18 @@ var self = module.exports = {
 
             if (isCorrect) {
                 if(user2.IsActive == 1){
+                    salt = await bcrypt.genSalt(2);
+                    const tokenSession = await bcrypt.hash(Date.now().toString(),salt);
                     await User.update(
-                        {dateSesion: Date.now()},
+                        {dateSesion: Date.now(),
+                        TokenSession: tokenSession},
                         {where: { id_user: user2.id_user }}
                     );
                     req.session.id_user = user2.id_user;
                     req.session.Secret = user2.Secret;
                     req.session.Email = user2.Email;
                     req.session.TokenPublic = user2.TokenPublic;
+                    req.session.TokenSession = user2.TokenSession;
                     res.redirect(referer!= undefined? referer:'/');
                 }else if(user2.IsActive == -1){
                     res.render('website/acceso', { errors:[{ text: 'Usuario inactivo, accede a tu correo para activarlo' }]});
@@ -238,7 +266,37 @@ var self = module.exports = {
         res.render('website/recuperar', { title,recovered,success_msg});
     },
 
+    activate: async function (req, res, next) {
+        res.render('website/recuperar');
+    },
+
     faq: async function (req, res, next) {
         res.render('website/dudas');
     }
+}
+
+function sendEmail(to, from, email) {
+    var transporter = nodemailer.createTransport({
+        service:"Godaddy",
+        host: "smtpout.secureserver.net",  
+        secureConnection: true,
+        port: 465,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_AUTH
+        }
+    });
+    var mailOptions = {
+        from: from,
+        to: to,
+        subject: email.subject,
+        text: email.text
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error){
+            console.log(error);
+        } else {
+            console.log("Email sent");
+        }
+    });
 }

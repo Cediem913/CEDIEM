@@ -41,7 +41,7 @@ app.use(session({
     saveUninitialized: true,
     secret: process.env.COOKIE_SESION_SECRET,
     cookie: {
-        maxAge: parseInt(process.env.COOKIE_MAX_AGE, 10),
+        maxAge: parseInt(process.env.COOKIE_MAX_AGE),
         sameSite: true,
         httpOnly: false,
         secure: false

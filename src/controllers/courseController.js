@@ -1,6 +1,7 @@
 const Course = require('../models/Course');
 const queryer = require('../models/queryer');
 const db = require('../database');
+const pagination = require('../utils/pagination')
 
 module.exports = {
 
@@ -145,7 +146,7 @@ module.exports = {
     },
 
     course: function (req, res, next) {
-        var title = req.params.id_curso;
+        var title = req.params.id_course;
 
         var attributes = [
             'id_course', 'id_root', 'Description', 'Price', 'StartDate', 'EndDate',

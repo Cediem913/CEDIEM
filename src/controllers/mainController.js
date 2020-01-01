@@ -109,7 +109,7 @@ var self = module.exports = {
         console.log('ReqSesionUser_' + id_user + Email + Secret + TokenPublic);
         if (id_user) {
             res.locals.user = await User.findOne({
-                attributes: ['id_user', 'Secret', 'Email','TokenPublic'],
+                attributes: ['id_user', 'Secret', 'Email','TokenPublic','TokenSession'],
                 where: {
                     id_user: id_user
                 }
