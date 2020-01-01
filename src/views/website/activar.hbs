@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 mt-4 mx-auto">
+            <div class="card mt-4t ext-center">
+                {{#if activated}}
+                <div class="card-header">
+                    <h2>Éxito</h2>
+                </div>
+
+                <div class="card-body">
+                    <p>Tu usuario se ha activado, accede ahora</p>
+                    <a href="/acceso" class="btn btn-dark cart">Accede</a>
+                </div>
+
+                {{else}}
+                <div class="card-header">
+                    <h2>Error</h2>
+                </div>
+
+                <div class="card-body">
+                    <p>Error de enlace</p>
+                    <a href="/registro" class="btn btn-dark cart">Registrate</a>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+</br></br></br>

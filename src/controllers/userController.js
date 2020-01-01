@@ -267,7 +267,7 @@ var self = module.exports = {
     },
 
     activate: async function (req, res, next) {
-        res.render('website/recuperar');
+        res.render('website/activar',{activated:true});
     },
 
     faq: async function (req, res, next) {

@@ -34,6 +34,15 @@
                         </div>
                     </form>
                 </div>
+                {{else}}
+                <div class="card-header">
+                    <h2>Link caducado</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/recuperar" method="POST">
+                        <button onclick="goBack()" class="btn btn-dark"> Regresar</button>
+                    </form>
+                </div>
                 {{/if}}
             </div>
         </div>
