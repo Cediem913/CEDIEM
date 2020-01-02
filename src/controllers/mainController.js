@@ -2,8 +2,9 @@ const User = require('../models/User');
 
 const Course = require('../models/Course');
 const Sell = require('../models/Sell');
-
 const Root = require('../models/Root');
+const Service = require('../models/Service');
+
 const queryer = require('../models/queryer');
 const bcrypt = require('bcrypt');
 
@@ -17,14 +18,18 @@ var self = module.exports = {
         var fields = queryer.getCourseBasicFields();
         var filter = queryer.getCourseBasicFilter();
         var orderBy = [['StartDate', 'ASC']];
-        const courses = Course.findAll({ attributes: fields, where: filter, limit: 10, order: orderBy });
+        const courses = Course.findAll({ attributes: fields, where: filter, limit: 15, order: orderBy });
 
         fields = queryer.getRootBasicFields();
         filter = queryer.getRootBasicFilter();
         const roots = Root.findAll({ attributes: fields, where: filter });
 
-        Promise.all([courses, roots]).then(responses => {
-            res.render('inicio', { title, courses: responses[0], roots: responses[1] });
+        fields = queryer.getServiceBasicFields();
+        filter = queryer.getServiceBasicFilter();
+        const services = Service.findAll({ attributes: fields, where: filter, limit: 15 });
+
+        Promise.all([courses, roots, services]).then(responses => {
+            res.render('inicio', { title, courses: responses[0], roots: responses[1], services:responses[2] });
         }).catch(err => {
             console.log(err);
         });

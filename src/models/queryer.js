@@ -27,6 +27,19 @@ exports.getRootBasicFilter = function(){
     };
 }
 
+exports.getServiceBasicFields = function(){
+    return fields = [
+        'id_service', 'Name', 'Price','Type','id_root','Owner',
+        'Info','File', 'Description', 'Duration','Image'
+    ]
+}
+
+exports.getServiceBasicFilter = function(){
+    return filter = {
+        IsActive: 1
+    };
+}
+
 exports.validateUserFunction = async function (username){
     var message = '1';
     /*var regex = new Regex(/[!@#$%^&*()/,.?":{}|<>-]/);
