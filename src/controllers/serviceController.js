@@ -11,7 +11,7 @@ module.exports = {
         var title = req.params.query;
         var {page,method} = req.params;
         var sizePage = 4;
-        const query = title;
+        var query = title;
         
         var attributes = [
             'id_service', 'Name', 'Price','Type','id_root','Owner','Info','File', 'Description', 'Duration'
@@ -20,9 +20,7 @@ module.exports = {
             IsActive: 1
         };
 
-        if(title == undefined || title == "" || title == null){
-            title == "Servicios";
-        }else{
+        if(title){
             title = 'Bucar por...' + query;
             where = {
                 IsActive: 1,
@@ -38,6 +36,9 @@ module.exports = {
                     }
                 }
             };
+        }else{
+            title = "Todos los Servicios";
+            query = "";
         }
         const isNumber = await Pagination.validateNumber(page);
         var pageParsed = 1;
@@ -49,7 +50,7 @@ module.exports = {
         const footer = await Pagination.paginate(pageParsed,2,pageSize);
 
         //res.send({title, query, services, footer});
-        if(method != null || method != undefined){
+        if(method){
             res.render('partials/components/services', { title, query , services, footer, layout:false});
         }else{
             res.render('website/servicios', { title, query , services, footer});

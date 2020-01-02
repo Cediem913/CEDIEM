@@ -1,17 +1,29 @@
 <div class="container">
-    {{>components/courses}}
-
+    <div>
+        <section>
+            <div class="input-group mb-3">
+                <input id="courses-input-query" type="text" class="form-control" placeholder="Que curso buscas?" value="{{query}}">
+                <button id="courses-button-find" type="button" class="btn btn-dark cart">Buscar</button>
+            </div>
+            {{>components/courses}}
+        </section>
+    </div>
     <script>
         $(document).ready(function () {
-            $("#button-find").on("click", function () {
+            $("#courses-button-find").on("click", function () {
                 $.ajax({
-                    url: "/cursos/1/" + document.getElementById("input-query").value
+                    url: "/cursos/1/" + document.getElementById("courses-input-query").value + "/1"
                 })
                     .done(function (data) {
-                        $('#result-courses').html(data);
+                        $('#courses-container').html(data);
                     });
             });
+        });
+
+        $('#courses-input-query').keypress(function(e){
+            if(e.keyCode==13)
+                $('#courses-button-find').click();
         });    
     </script>
-    </br></br></br></br>
+    </br></br>
 </div>
