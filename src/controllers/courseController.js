@@ -1,6 +1,5 @@
 const Course = require('../models/Course');
 const queryer = require('../models/queryer');
-const db = require('../database');
 const Pagination = require('../utils/pagination');
 const Op = require("sequelize").Op;
 
@@ -82,13 +81,14 @@ module.exports = {
         ];
 
         var where = {
-            id_course: title,
+            id_course: "Teorías de la personalidad ONLINE",
             IsActive: 1
         };
 
-        selectCourses(attributes, where).then(course => {
+        selectCourses(attributes, where,1,1).then(course => {
             res.render('website/curso', { title, course });
         }).catch(err => {
+            console.log("xxxxxxxxxxxxxxxxxxxx",err)
             res.render('website/error', { title });
         });
     }
