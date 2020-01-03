@@ -85,7 +85,7 @@ module.exports = {
             IsActive: 1
         };
 
-        selectCourses(attributes, where,1,1).then(course => {
+        selectCourse(attributes, where).then(course => {
             res.render('website/curso', { title, course });
         }).catch(err => {
             console.log("xxxxxxxxxxxxxxxxxxxx",err)
@@ -100,6 +100,13 @@ function selectCourses(fields, filter, page, sizePage) {
         where: filter,
         limit: sizePage, 
         offset: ((page-1)*sizePage)
+    });
+}
+
+function selectCourse(fields, filter) {
+    return Course.findAll({
+        attributes: fields,
+        where: filter
     });
 }
 
