@@ -81,14 +81,13 @@ module.exports = {
         ];
 
         var where = {
-            id_course: "Teorías de la personalidad ONLINE",
+            id_course: title,
             IsActive: 1
         };
 
         selectCourse(attributes, where).then(course => {
             res.render('website/curso', { title, course });
         }).catch(err => {
-            console.log("xxxxxxxxxxxxxxxxxxxx",err)
             res.render('website/error', { title });
         });
     }
