@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-sm-9">
+            <h4><small>Prepara tu compra {{user.id_user}}</small></h4>
+            <hr>
+            <h2>{{result.product}}</h2>
+            <h5><span class="glyphicon glyphicon-time"></span> {{result.description}}</h5>
+            <h5><span class="label label-danger">Info: </span> <span class="label label-primary">{{result.info}}</span></h5><br>
+            <p>{{result.image}}</p>
+            <br>
+            
+            <form action="/cerrar" method="POST">
+                <input type="hidden" name="id_user" id="id_user" size="150" value="{{user.id_user}}" />
+                <input type="hidden" name="token" id="token" size="150" value="{{user.TokenSession}}" />
+                <button type="submit">Tarjeta</button>
+            </form>
+
+            <form action="/cerrar" method="POST">
+                <input type="hidden" name="id_user" id="id_user" size="150" value="{{user.id_user}}" />
+                <input type="hidden" name="token" id="token" size="150" value="{{user.TokenSession}}" />
+                <button type="submit">Transferencia, efectivo o acuerdo</button>
+            </form>
+            <br><br><br><br><br><br>
+        </div>
+
+
+        <div class="col-sm-3">
+            <h4>FAQ </br><small>Por que nos preocupa que compres con confianza</small></h4>
+            <p>links links links links</p>
+            <br>
+        </div>
+    </div>
+</div>

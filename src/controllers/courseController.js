@@ -79,7 +79,6 @@ module.exports = {
             'id_course', 'id_root', 'Description', 'Price', 'StartDate', 'EndDate',
             'Schedule', 'Duration', 'Image', 'Map', 'Video', 'Syllabus', 'Benefits', 'Documents','Modal'
         ];
-
         var where = {
             id_course: title,
             IsActive: 1
