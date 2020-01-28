@@ -54,3 +54,31 @@ exports.validateDate = async function (number) {
     }
     return result;
 }
+
+exports.validateDateIsLater = async function (number) {
+    var result = false;
+    var dateFormat = new Date(number);
+    var today = new Date();
+            
+    if(today < dateFormat){
+        result = true;
+    }
+    return result;
+}
+
+exports.convertToDateTime = async function (date, time, seconds) {
+    var result = new Date(date);
+    result.setHours(time);
+    result.setSeconds(seconds);
+    return result;
+}
+
+exports.convertQuantityFromDB = async function (quantity) {
+    var result = parseFloat(parseInt(quantity)/100).toFixed(2);
+    return result;
+}
+
+exports.convertmDBfromQuantity = async function (quantity) {
+    var result = parseInt(quantity)*100;
+    return result;
+}

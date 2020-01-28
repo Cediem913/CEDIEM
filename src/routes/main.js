@@ -8,9 +8,9 @@ router.get('/acceso_directo', mainController.signinDirect);
 
 router.post('/aceptarPago', mainController.checkOutP);
 
-router.post('/preparar/',mainController.buy);
+router.get('/comprar/:type/:product',mainController.prepare);
 
-router.get('/comprar/:type/:product',mainController.buy);
+router.post('/comprar/ConTarjeta',mainController.buyWithCard);
 
 router.get('/contacto', mainController.contact);
 

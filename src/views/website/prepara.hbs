@@ -1,35 +1,117 @@
 <div class="container">
+    <h4><small>{{result.type}} {{#if user.id_user}} "{{user.id_user}}" {{/if}}</small></h4>
+            <hr>
     <div class="row">
 
-
-        <div class="col-sm-9">
-            <h4><small>Prepara tu compra {{user.id_user}}</small></h4>
-            <hr>
-            <h2>{{result.product}}</h2>
-            <h5><span class="glyphicon glyphicon-time"></span> {{result.description}}</h5>
-            <h5><span class="label label-danger">Info: </span> <span class="label label-primary">{{result.info}}</span></h5><br>
-            <p>{{result.image}}</p>
-            <br>
+        <div class="col-md-8">
             
-            <form action="/cerrar" method="POST">
-                <input type="hidden" name="id_user" id="id_user" size="150" value="{{user.id_user}}" />
-                <input type="hidden" name="token" id="token" size="150" value="{{user.TokenSession}}" />
-                <button type="submit">Tarjeta</button>
-            </form>
+            <div class="card">
+                <div class="card-header">
+                    <h2>{{result.product.Name}}</h2>
+                    <p id="service-name" class="newarrival text-center">{{Name}}</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5><span class="label label-danger"></span> <span class="label label-primary">{{result.product.Info}}</span></h5>
+                            <p>código: {{result.product.id_service}}</p>
+                            <h5 id="service-price" class="price"></h5>
+                            <script>
+                                var result = parseFloat(parseInt({{result.product.Price}})/100).toFixed(2);
+                                document.getElementById('service-price').innerHTML = result + " MXN";
+                            </script>
+                            {{#if result.isService}}
+                            <h6><small>Inicio: {{result.dateStart}}</small></h6>
+                            <h6><small>Fin: {{result.dateEnd}}</small></h6>
+                            {{/if}}
+                        </div>
+                        <div class="col-md-5">
+                            {{#if result.isService}}
+                            <img class="img-thumbnail" src="https://res.cloudinary.com/dinzw8gc3/image/upload/v1564937147/CEDIEM/Website/services/{{result.product.id_root}}/{{result.product.Image}}" alt="imagen">
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <!--
 
-            <form action="/cerrar" method="POST">
-                <input type="hidden" name="id_user" id="id_user" size="150" value="{{user.id_user}}" />
-                <input type="hidden" name="token" id="token" size="150" value="{{user.TokenSession}}" />
-                <button type="submit">Transferencia, efectivo o acuerdo</button>
-            </form>
-            <br><br><br><br><br><br>
-        </div>
+                        <form
+                        action="/aceptarPago?id_user={{...user.id_user}}&product={{id_course}}&price={{Price}}&startDate={{StartDate}}&endDate={{EndDate}}&map={{Map}}"
+                        method="POST">
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_gaby5qpjEypGf8MJnH20RSQD00z5Ec16AQ" data-amount="{{Price}}"
+                            data-email="a@a.c" data-currency="mxn" data-name="CEDIEM - {{id_course}}"
+                            data-description="Compra protegida por stripe"
+                            data-image="https://res.cloudinary.com/dinzw8gc3/image/upload/v1565068700/CEDIEM/Website/Structure/icon_cwxeqe.png"
+                            data-locale="auto">
+                            </script>
+                        <script>
+                            document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                        </script>
+                        <button id="botonPagoStripe" class="btn btn-default cart">
+                            comprar<i></i>
+                        </button>
+                    </form>
 
+                    -->
+                    <p>Pago con...</p>
+                    {{#if user.id_user}}
+                        <form action="/comprar/conTarjeta" method="POST">
+                            <input type="hidden" name="id_user" id="id_user" size="150" value="{{user.id_user}}" />
+                            <input type="hidden" name="token" id="token" size="150" value="{{user.TokenSession}}" />
+                            <!--user.TokenSession
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_gaby5qpjEypGf8MJnH20RSQD00z5Ec16AQ" data-amount="{{result.product.Price}}"
+                                data-email="{{user.Email}}" data-currency="mxn" data-name="CEDIEM - {{result.product.id_service}}"
+                                data-description="Compra protegida por stripe"
+                                data-image="https://res.cloudinary.com/dinzw8gc3/image/upload/v1565068700/CEDIEM/Website/Structure/icon_cwxeqe.png"
+                                data-locale="auto">
+                            </script>
+                            <script>
+                                document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                            </script>-->
+                            {{#if result.isService}}
+                            <input type="hidden" name="product" id="product" size="150" value="{{parameters.product}}" />
+                            <input type="hidden" name="type" id="type" size="150" value="{{parameters.type}}" />
+                            {{/if}}
+                            {{#if result.isCourse}}
 
-        <div class="col-sm-3">
-            <h4>FAQ </br><small>Por que nos preocupa que compres con confianza</small></h4>
-            <p>links links links links</p>
+                            {{/if}}
+                            <button class="btn btn-dark cart" type="submit">Tarjeta</button>
+                        </form>
+                    {{else}}
+                        <a class="btn btn-default cart" href="/acceso"> Tarjeta</a>
+                    {{/if}}
+                </div>
+            </div>
             <br>
         </div>
+<script>
+    $( document ).ready(function() {
+        //history.pushState('data to be passed', 'Title of the page', '/prepara');
+        //history.replaceState('data to be passed', 'Title of the page', '/comprar/{{result.product.id_service}}');
+        //window.location.replace("url");
+        //alert(window.location.pathname.replace("url"));
+    });
+</script>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>FAQ</h4></br>
+                </div>
+                <div class="card-body">
+                    <h4><small>Por que nos preocupa que compres con confianza</small></h4>
+                    <h4><small>Resuelve tus dudas...</small></h4>
+                    <br>
+                    <a class="btn btn-default faq" href="/faq/compras"> Compras</a>
+                    <a class="btn btn-default faq" href="/faq/horarios"> Horarios</a>
+                    <a class="btn btn-default faq" href="/faq/garantia"> Garantía</a>
+                    <a class="btn btn-default faq" href="/faq/soporte"> Soporte</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br>
     </div>
 </div>

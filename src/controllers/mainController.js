@@ -7,8 +7,10 @@ const Service = require('../models/Service');
 
 const queryer = require('../models/queryer');
 const bcrypt = require('bcrypt');
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const service = require('../controllers/serviceController');
+const user = require('../controllers/userController');
 
 var self = module.exports = {
 
@@ -68,20 +70,52 @@ var self = module.exports = {
         res.redirect('/',{message:[{Text:"Compra exitosa, accede a tu estatus para saber mas"}]});
     },
 
-    buy: async function (req, res, next) {
-        var service = require('../controllers/serviceController');
+    prepare: async function (req, res, next) {
         var {type, product} = req.params;
+        var parameters = {type, product};
         var result = {};
+        var title = "";
 
         if(type == 1){
-            result.type = "Curso";   
+            result.title = "Apartar Curso";
+            //validator result = await course.validateCourseBeforeBuy(product);
+            result.type = "Aparta tu Curso";
+            result.isService = true;
         }else if(type == 2){
-            result.type = "Servicio";
-            service.validateServiceBeforeBuy(product); 
+            title = "Apartar Servicio";
+            result = await service.validateServiceBeforeBuy(product);
+            result.type = "Aparta tu servicio";
+            result.isService = true;
         }
+        //console.log(result)
+        res.render('website/prepara',{title, result, type, product, parameters});
+    },
 
-        var title = "Comprar " + result.type;
-        res.render('website/compra',{title, type,product});
+    buyWithCard: async function (req, res, next) {
+        var service = require('../controllers/serviceController');
+        var {type, product} = req.body;
+        var params = req.body;
+        var result = {};
+        var title = "Compra erronea";
+        var path = "/";
+        var errors;
+
+        if(type == 1){
+            path = '/curso/';
+        }else if(type == 2){
+            path = '/servicio/';
+            result = await service.validateServiceBeforeBuy(product);
+            if(result.available){
+                title = "Compra exitosa";
+                result.id_sell = await service.buyProduct(result,params);
+            }else{
+                errors.push(result.message);
+            }
+            result.isService = true;
+        }
+        
+        //res.render('website/comprado',{result,title});
+        res.send({result,errors,title});
     },
 
     contact: function (req, res, next) {

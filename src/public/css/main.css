@@ -56,6 +56,14 @@ iframe {
 	font-size: 15px;
 }
 
+.faq{
+	background: #06705F;
+	color: #FFFFFF;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	font-size: 12px;
+}
+
 .btn-cediem-grey{
 	background: rgb(148, 148, 148);
 	color: #FFFFFF;

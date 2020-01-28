@@ -8,10 +8,6 @@ const Service = db.define('services',{
     primaryKey: true
   },Name: {
     type: Sequelize.STRING
-  },isActive: {
-    type: Sequelize.INTEGER
-  },Description: {
-    type: Sequelize.STRING
   },Price: {
     type: Sequelize.INTEGER
   },Type: {
@@ -22,14 +18,18 @@ const Service = db.define('services',{
     type: Sequelize.STRING
   },Info: {
     type: Sequelize.STRING
+  },Description: {
+    type: Sequelize.STRING
   },File: {
     type: Sequelize.STRING
   },Image: {
     type: Sequelize.STRING
   },Duration: {
     type: Sequelize.INTEGER
-  },id_room: {
-    type: Sequelize.STRING
+  },IsActive: {
+    type: Sequelize.INTEGER
+  },DateUp: {
+    type: Sequelize.DATE
   }
 })
 

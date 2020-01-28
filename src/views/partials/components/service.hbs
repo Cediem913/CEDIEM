@@ -20,14 +20,15 @@
                 <div class="card-body">
                     <p><b>Area: </b>{{id_root}}</p>
                     <p><b>Horas por sesion: </b>{{Duration}}</p>
-                    <p><b>Fecha de inicio: </b><input type='text' value="2009-12-19" class="form-control" id="fechaInicio" onfocusout="asignarFecha()"/></p>
+                    <p><b>Fecha de inicio: </b><input id="fechaInicio" type='hidden' value="2009-12-19" class="form-control apprvd_input_date" onfocusout="asignarFecha()" readonly="readonly"/></p>
                     <p><b>Hora de inicio:
-                        <div class='input-group date' id='datetimepicker10'>
+                        <!--<div class='input-group date' id='datetimepicker10'>
                             <input type='text' class="form-control" />
                             <span class="input-group-addon">
                                 Calendario
                             </span>
-                        </div>
+                        </div>-->
+                        
                     <div id="arrayContenedor">
                         
                     </div>
@@ -59,6 +60,7 @@
                     {{else}}
                     <a class="btn btn-default cart" href="/acceso"> Apartar fecha<i></i></a>
                     {{/if}}-->
+                    
                     <a class="btn btn-default cart" onclick="comprar()" href="#"> Apartar fecha<i></i></a>
                 </div>
             </div>
@@ -93,16 +95,16 @@
         <div class="col-md-12 align-self-center">
             <div class="card">
                 <div class="card-header">
-                    <p>Aulas: <!--<button onclick="ver()">VER</button></p>-->
+                    <p>Aulas: <button id="off" onclick="ver()">VER</button></p>
                 </div>
                 <div class="card-body">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         {{#each ../rooms}}
                         <div class="carousel-item {{#if isIndex}}active{{/if}}">
-                        <img class="d-block w-100" src="https://dummyimage.com/600x200/000/fff" alt="">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{Name}} - {{Location}}</h5>
+                        <img class="d-block w-100" src="https://dummyimage.com/600x400/000/fff" alt="">
+                            <div class="carousel-caption">
+                                <h6>{{Name}} - {{Location}}</h6>
                                 <button class="btn btn-default cart" id="{{id_room}}" onclick="asignarRoom('{{id_room}}',{{Location}})">seleccionar</button>
                             </div>
                         </div>
@@ -142,12 +144,13 @@
                     </script>
                     
                     <script>
-                        $(function () {
-                            $('#datetimepicker10').datetimepicker({
-                                viewMode: 'years',
-                                format: 'DD/MM/YYYY'
-                            });
+                        $('#fechaInicio').datepicker({
+                            dateFormat: 'yy-mm-dd',
+                            startDate: '+3d'
                         });
+
+                        //$("#fechaInicio").datepicker("disable");
+                            
                     </script>
 
                     <script>
@@ -158,7 +161,8 @@
                             initMap(lat,lng);
                             window.service = {{id_service}};
     	                    window.room=id_room;
-                            document.getElementById('fechaInicio').value = "";
+                            //document.getElementById('fechaInicio').value = "";
+                            document.getElementById('fechaInicio').type = "text";
                             window.date = undefined;
                             if( document.getElementById('arrayNuevo')){
                                 var element = document.getElementById('arrayNuevo');
