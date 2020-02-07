@@ -42,7 +42,7 @@
             <input type="hidden" name="id_user" id="username" size="150" value="{{user.TokenPublic}}" />
             <input class="dropdown-item" type="submit" name="buttonShop" id="buttonShop" value="Mis compras" />
           </form>
-          <form id="moodleAccess" action="http://moodle.cediem.com/login/index.php" method="POST">
+          <form id="moodleAccess" action="https://moodle.cediem.com/login/index.php" method="POST">
             <input type="hidden" name="username" id="username" size="25" value="{{user.id_user}}" />
             <input type="hidden" name="password" id="password" size="25" value="{{user.Secret}}" />
             <input class="dropdown-item" type="submit" name="buttonLogin" id="buttonLogin" value="Acceso a moodle" />
