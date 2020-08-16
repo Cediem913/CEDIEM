@@ -61,7 +61,7 @@
                     <a class="btn btn-default cart" href="/acceso"> Apartar fecha<i></i></a>
                     {{/if}}-->
                     
-                    <a class="btn btn-default cart" onclick="comprar()" href="#"> Apartar fecha<i></i></a>
+                    <a class="btn btn-default cart" href="https://wa.me/5611357662"> Apartar fecha<i></i></a>
                 </div>
             </div>
         </div>
@@ -88,115 +88,6 @@
                 </div>
                 <div class="card-body">
                     <p>{{Info}}</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-12 align-self-center">
-            <div class="card">
-                <div class="card-header">
-                    <p>Aulas: <button id="off" onclick="ver()">VER</button></p>
-                </div>
-                <div class="card-body">
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {{#each ../rooms}}
-                        <div class="carousel-item {{#if isIndex}}active{{/if}}">
-                        <img class="d-block w-100" src="https://dummyimage.com/600x400/000/fff" alt="">
-                            <div class="carousel-caption">
-                                <h6>{{Name}} - {{Location}}</h6>
-                                <button class="btn btn-default cart" id="{{id_room}}" onclick="asignarRoom('{{id_room}}',{{Location}})">seleccionar</button>
-                            </div>
-                        </div>
-                        {{/each}}
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-12 align-self-center">
-            <div class="card">
-                <div class="card-header">
-                    <p>Mapa:</p>
-                </div>
-                <div class="card-body">
-                    <div id="map"></div>
-                    <script>
-                        // Initialize and add the map
-                        function initMap(data,data1) {
-                            // The location of Uluru
-                            var uluru = { lat:data,lng:data1 };                
-                            // The map, centered at Uluru
-                            var map = new google.maps.Map(
-                                document.getElementById('map'), { zoom: 5, center: uluru });
-                            // The marker, positioned at Uluru
-                            var marker = new google.maps.Marker({ position: uluru, map: map });
-                        }
-                    </script>
-                    
-                    <script>
-                        $('#fechaInicio').datepicker({
-                            dateFormat: 'yy-mm-dd',
-                            startDate: '+3d'
-                        });
-
-                        //$("#fechaInicio").datepicker("disable");
-                            
-                    </script>
-
-                    <script>
-                        function ver(){
-                            alert(" R:" + window.room + " D:" + window.date + "  H:" + window.hour + " S:" + window.service);
-                        }
-                        function asignarRoom(id_room,lat,lng){
-                            initMap(lat,lng);
-                            window.service = {{id_service}};
-    	                    window.room=id_room;
-                            //document.getElementById('fechaInicio').value = "";
-                            document.getElementById('fechaInicio').type = "text";
-                            window.date = undefined;
-                            if( document.getElementById('arrayNuevo')){
-                                var element = document.getElementById('arrayNuevo');
-                                element.parentNode.removeChild(element);
-                            }
-                        }
-                        function asignarFecha(){
-                            if(window.room == undefined){
-                                alert('Selecciona un campus antes de asignar una fecha');
-                                document.getElementById('fechaInicio').value = "";
-                            }else{
-    	                        window.date=document.getElementById('fechaInicio').value;
-                                window.hour = undefined;
-                                $.ajax({url: "/servicio/listaEventos/" + window.service + "/" + window.room+ "/" + window.date})
-                                        .done(function (data) {
-                                            $('#arrayContenedor').html(data);
-                                        });
-                            } 
-                        }
-                        function asignarHora(value){
-                            document.getElementById("botonSeleccion").innerText = value + " hrs";
-                            window.hour = value;
-                        }
-                        function comprar(){
-                            if(window.service != undefined && window.room != undefined && window.date != undefined && window.hour != undefined){
-                                var name = document.getElementById("service-name").innerHTML;
-                                window.location.href = '/comprar/2/'+ window.service + "|" + window.room + "|" + window.date + "|" + window.hour + "|" + name;
-                            }else{
-                                alert("Selecciona el aula la fecha y la hora para poder apartarlo");
-                            }
-                        }
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=initMap">
-                    </script>
                 </div>
             </div>
         </div>
